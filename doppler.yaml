@@ -1,0 +1,3 @@
+setup:
+  project: gtfol-today
+  config: dev
