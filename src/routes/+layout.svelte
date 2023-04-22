@@ -18,7 +18,7 @@
 		<!-- App Bar -->
 		<AppBar background="" class="lg:fixed">
 			<svelte:fragment slot="lead">
-				<img src="/gtfol-logo.png" class="max-h-10" />
+				<img src="/gtfol-logo.png" class="max-h-10" alt="GTFOL" />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
