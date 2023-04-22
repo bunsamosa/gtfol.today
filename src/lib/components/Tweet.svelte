@@ -1,16 +1,24 @@
 <script>
-	import LazyLoad from '@dimfeld/svelte-lazyload';
+	import { onMount } from 'svelte';
+	import CardSkeleton from '$lib/components/CardSkeleton.svelte';
 	export let tweetID = '';
+
+	// create tweet using window.twttr.widgets.createTweet
+	let loading = true;
+	onMount(async () => {
+		twttr.widgets
+			.createTweet(tweetID, document.getElementById(tweetID), {
+				theme: 'dark'
+			})
+			.then(() => {
+				loading = false;
+			});
+	});
 </script>
 
-<svelte:head>
-	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-</svelte:head>
-
-<LazyLoad>
-	<div class="flex justify-center">
-		<blockquote class="twitter-tweet" data-theme="dark">
-			<a class="twitter-tweet" href={`https://twitter.com/x/status/${tweetID}`}>Loading Tweet...</a>
-		</blockquote>
-	</div>
-</LazyLoad>
+<div>
+	{#if loading}
+		<CardSkeleton />
+	{/if}
+	<div id={tweetID} class="flex justify-center" />
+</div>
