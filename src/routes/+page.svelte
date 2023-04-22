@@ -2,6 +2,7 @@
 <script setup lang="ts">
 	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
 	import TweetList from '$lib/components/TweetList.svelte';
+	import LazyLoad from '@dimfeld/svelte-lazyload';
 	// import { _twitterWidgetsLoader } from '$lib/TwitterWidget';
 	// 	_twitterWidgetsLoader.load();
 	let tabSet: number = 0;
@@ -24,26 +25,31 @@
 				<Tab bind:group={tabSet} name="tab3" value={2}>Season 3</Tab>
 				<!-- Tab Panels --->
 				<svelte:fragment slot="panel">
-					{#if tabSet === 0}
-						<TweetList listType="week" />
-					{:else if tabSet === 1}
-						<TweetList listType="week" />
-					{:else if tabSet === 2}
-						<TweetList listType="season3" />
-					{/if}
+					<LazyLoad>
+						{#if tabSet === 0}
+							<TweetList listType="week" />
+						{:else if tabSet === 1}
+							<TweetList listType="week" />
+						{:else if tabSet === 2}
+							<TweetList listType="season3" />
+						{/if}
+					</LazyLoad>
 				</svelte:fragment>
 			</TabGroup>
 		</div>
 	</div>
 </div>
 <!-- Content for mobile only -->
+
 <div class="block lg:hidden">
 	<div class="flex flex-col">
 		<div class="justify-center items-center m-auto">
 			<div class="text-2xl font-bold">top shippers @_buildspace</div>
 		</div>
-		<div class="flex flex-col justify-start pt-3 overflow-y-scroll hide-scrollbar">
-			<TweetList listType="week" />
-		</div>
+		<LazyLoad>
+			<div class="flex flex-col justify-start pt-3 overflow-y-scroll hide-scrollbar" id="mobile">
+				<TweetList listType="week" />
+			</div>
+		</LazyLoad>
 	</div>
 </div>
