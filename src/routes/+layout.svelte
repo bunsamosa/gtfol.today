@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
 	// The ordering of these imports is critical to your app working properly
 	import '@skeletonlabs/skeleton/themes/theme-gold-nouveau.css';
 	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
@@ -9,38 +9,16 @@
 </script>
 
 <!-- App Shell -->
-<AppShell>
-	<svelte:fragment slot="header">
+<AppShell
+	class="max-w-7xl m-auto"
+	regionPage="relative"
+	slotPageHeader="lg:sticky lg:top-0 lg:z-10"
+>
+	<svelte:fragment slot="pageHeader">
 		<!-- App Bar -->
-		<AppBar>
+		<AppBar background="" class="lg:fixed">
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://discord.gg/EXqV7W8MtY"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Discord
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://twitter.com/SkeletonUI"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Twitter
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/skeletonlabs/skeleton"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
+				<img src="/gtfol-logo.png" class="max-h-10" />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
