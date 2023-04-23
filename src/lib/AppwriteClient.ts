@@ -25,8 +25,17 @@ const thisWeekQuery = Query.greaterThan("created_on", oneWeekAgo.toISOString());
 const season3Start = new Date("2023-04-08T00:00:00.000Z");
 const season3Query = Query.greaterThan("created_on", season3Start.toISOString());
 
-// fetch tweets
-export async function fetchTweets(time: string, offset: number = 0, limit: number = 5) {
+// fetch data from DB for given query filters
+async function fetchResponse(queries: Array<string>) {
+    const response = await databases.listDocuments(
+        import.meta.env.VITE_APPWRITE_DATABASE_ID,
+        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+        queries);
+    return response;
+};
+
+// given string time, return query
+function fetchTimeQuery(time: string) {
     let timeQuery;
     switch (time) {
         case "hour":
@@ -44,15 +53,48 @@ export async function fetchTweets(time: string, offset: number = 0, limit: numbe
         default:
             timeQuery = thisHourQuery;
     };
+    return timeQuery;
+};
+
+// fetch tweets
+export async function fetchTweets(time: string, offset: number = 0, limit: number = 5) {
+    let timeQuery = fetchTimeQuery(time);
     console.log(timeQuery);
-    const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
-        [
+    const response = await fetchResponse([
+        timeQuery,
+        Query.orderDesc("score"),
+        Query.offset(offset),
+        Query.limit(limit)
+    ]);
+    return response.documents;
+};
+
+// fetch tweet count
+export async function fetchTweetCount(time: string) {
+    let timeQuery = fetchTimeQuery(time);
+    console.log(timeQuery);
+
+    let offset = 0;
+    let limit = 5000;
+    let response = await fetchResponse([
+        timeQuery,
+        Query.offset(offset),
+        Query.limit(limit)
+    ]);
+
+    // fetch count when more than limit
+    let count = response.documents.length;
+    let total = count;
+    while (count > limit - 1) {
+        offset += count;
+        response = await fetchResponse([
             timeQuery,
-            Query.orderDesc("score"),
             Query.offset(offset),
             Query.limit(limit)
-        ])
-    return response.documents;
+        ]);
+        count = response.documents.length;
+        total += count;
+        console.log(limit, offset, total);
+    }
+    return total;
 };

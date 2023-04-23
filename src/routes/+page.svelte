@@ -2,6 +2,7 @@
 <script setup lang="ts">
 	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
 	import TweetList from '$lib/components/TweetList.svelte';
+	import TweetStats from '$lib/components/TweetStats.svelte';
 	import LazyLoad from '@dimfeld/svelte-lazyload';
 	// import { _twitterWidgetsLoader } from '$lib/TwitterWidget';
 	// 	_twitterWidgetsLoader.load();
@@ -11,12 +12,17 @@
 <!-- Content for large screen only -->
 <div class="hidden lg:block">
 	<div class="flex h-screen">
-		<div class="w-3/5 h-full flex justify-center items-center">
+		<div class="w-3/5 h-full flex flex-col justify-center items-center">
 			<div class="text-7xl font-bold">
 				discover
 				<br /> top shippers
 				<br />@_buildspace
 			</div>
+			<LazyLoad>
+				<div class="lg:block hidden">
+					<TweetStats />
+				</div>
+			</LazyLoad>
 		</div>
 		<div class="w-2/5 flex flex-col justify-start overflow-y-scroll hide-scrollbar">
 			<TabGroup regionList="sticky top-0 variant-glass-surface">
