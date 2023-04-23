@@ -20,17 +20,20 @@
 		</div>
 		<div class="w-2/5 flex flex-col justify-start overflow-y-scroll hide-scrollbar">
 			<TabGroup regionList="sticky top-0 variant-glass-surface">
-				<Tab bind:group={tabSet} name="tab1" value={0}>Latest</Tab>
-				<Tab bind:group={tabSet} name="tab2" value={1}>This Week</Tab>
-				<Tab bind:group={tabSet} name="tab3" value={2}>Season 3</Tab>
+				<Tab bind:group={tabSet} name="tab1" value={0}>Last Hour</Tab>
+				<Tab bind:group={tabSet} name="tab2" value={1}>24 Hours</Tab>
+				<Tab bind:group={tabSet} name="tab2" value={2}>7 days</Tab>
+				<Tab bind:group={tabSet} name="tab3" value={3}>Season 3</Tab>
 				<!-- Tab Panels --->
 				<svelte:fragment slot="panel">
 					<LazyLoad>
 						{#if tabSet === 0}
-							<TweetList listType="week" />
+							<TweetList listType="hour" />
 						{:else if tabSet === 1}
-							<TweetList listType="week" />
+							<TweetList listType="day" />
 						{:else if tabSet === 2}
+							<TweetList listType="week" />
+						{:else if tabSet === 3}
 							<TweetList listType="season3" />
 						{/if}
 					</LazyLoad>
@@ -48,7 +51,7 @@
 		</div>
 		<LazyLoad>
 			<div class="flex flex-col justify-start pt-3 overflow-y-scroll hide-scrollbar" id="mobile">
-				<TweetList listType="week" />
+				<TweetList listType="hour" />
 			</div>
 		</LazyLoad>
 	</div>

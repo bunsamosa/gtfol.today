@@ -38,9 +38,13 @@ export async function fetchTweets(time: string, offset: number = 0, limit: numbe
         case "week":
             timeQuery = thisWeekQuery;
             break;
-        default:
+        case "season3":
             timeQuery = season3Query;
+            break;
+        default:
+            timeQuery = thisHourQuery;
     };
+    console.log(timeQuery);
     const response = await databases.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE_ID,
         import.meta.env.VITE_APPWRITE_COLLECTION_ID,
