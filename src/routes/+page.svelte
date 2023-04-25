@@ -24,7 +24,7 @@
 				</div>
 			</LazyLoad>
 		</div>
-		<div class="w-2/5 flex flex-col justify-start overflow-y-scroll hide-scrollbar">
+		<div class="w-2/5 flex flex-col justify-start h-screen overflow-hidden">
 			<TabGroup regionList="sticky top-0 variant-glass-surface">
 				<Tab bind:group={tabSet} name="tab1" value={0}>Last Hour</Tab>
 				<Tab bind:group={tabSet} name="tab2" value={1}>24 Hours</Tab>
@@ -51,12 +51,12 @@
 <!-- Content for mobile only -->
 
 <div class="block lg:hidden">
-	<div class="flex flex-col">
+	<div class="flex flex-col overflow-hidden hide-scrollbar">
 		<div class="justify-center items-center m-auto">
-			<div class="text-2xl font-bold">top shippers @_buildspace</div>
+			<div class="text-2xl font-bold">top shippers this hour</div>
 		</div>
 		<LazyLoad>
-			<div class="flex flex-col justify-start pt-3 overflow-y-scroll hide-scrollbar" id="mobile">
+			<div class="flex flex-col justify-start pt-3 overflow-hidden hide-scrollbar" id="mobile">
 				<TweetList listType="hour" />
 			</div>
 		</LazyLoad>
