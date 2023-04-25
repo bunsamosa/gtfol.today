@@ -53,11 +53,11 @@
 <div class="block lg:hidden">
 	<div class="flex flex-col overflow-hidden hide-scrollbar">
 		<div class="justify-center items-center m-auto">
-			<div class="text-2xl font-bold">top shippers this hour</div>
+			<div class="text-2xl font-bold">top shippers in 24 hours</div>
 		</div>
 		<LazyLoad>
 			<div class="flex flex-col justify-start pt-3 overflow-hidden hide-scrollbar" id="mobile">
-				<TweetList listType="hour" />
+				<TweetList listType="day" />
 			</div>
 		</LazyLoad>
 	</div>
