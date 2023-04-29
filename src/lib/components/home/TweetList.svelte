@@ -1,9 +1,9 @@
 <script setup lang="ts">
 	import { onMount } from 'svelte';
-	import { fetchTweets } from '$lib/AppwriteClient';
-	import CardSkeleton from '$lib/components/CardSkeleton.svelte';
-	import InfiniteScroll from '$lib/components/InfiniteScroll.svelte';
-	import Tweet from '$lib/components/Tweet.svelte';
+	import { fetchTweets } from '$lib/scripts/home/AppwriteClient';
+	import CardSkeleton from '$lib/components/common/CardSkeleton.svelte';
+	import InfiniteScroll from '$lib/components/common/InfiniteScroll.svelte';
+	import Tweet from '$lib/components/home/Tweet.svelte';
 	export let listType = 'hour';
 
 	// define reactive variables
@@ -32,7 +32,7 @@
 		{#if tweetData.length === 0}
 			<CardSkeleton />
 		{:else}
-			{#each tweetData as row}
+			{#each tweetData as row (row.$id)}
 				<li id={row.$id}>
 					<Tweet tweetID={row.$id} />
 				</li>

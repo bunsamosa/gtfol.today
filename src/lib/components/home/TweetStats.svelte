@@ -1,6 +1,6 @@
 <script setup lang="ts">
-	import { fetchTweetCount } from '$lib/AppwriteClient';
-	import Spinner from '$lib/components/Spinner.svelte';
+	import { fetchTweetCount } from '$lib/scripts/home/AppwriteClient';
+	import Spinner from '$lib/components/common/Spinner.svelte';
 </script>
 
 <div class="mx-auto text-center py-16 px-6 w-full">

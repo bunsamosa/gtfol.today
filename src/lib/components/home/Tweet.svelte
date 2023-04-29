@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import CardSkeleton from '$lib/components/CardSkeleton.svelte';
+	import CardSkeleton from '$lib/components/common/CardSkeleton.svelte';
 	export let tweetID = '';
 
 	// create tweet using window.twttr.widgets.createTweet

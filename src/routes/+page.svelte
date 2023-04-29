@@ -1,8 +1,8 @@
 <!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
 <script setup lang="ts">
 	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
-	import TweetList from '$lib/components/TweetList.svelte';
-	import TweetStats from '$lib/components/TweetStats.svelte';
+	import TweetList from '$lib/components/home/TweetList.svelte';
+	import TweetStats from '$lib/components/home/TweetStats.svelte';
 	import LazyLoad from '@dimfeld/svelte-lazyload';
 	// import { _twitterWidgetsLoader } from '$lib/TwitterWidget';
 	// 	_twitterWidgetsLoader.load();
