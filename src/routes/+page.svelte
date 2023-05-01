@@ -4,8 +4,9 @@
 	import TweetList from '$lib/components/home/TweetList.svelte';
 	import TweetStats from '$lib/components/home/TweetStats.svelte';
 	import LazyLoad from '@dimfeld/svelte-lazyload';
-	// import { _twitterWidgetsLoader } from '$lib/TwitterWidget';
-	// 	_twitterWidgetsLoader.load();
+	import Fa from 'svelte-fa';
+	import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+
 	let tabSet: number = 0;
 </script>
 
@@ -13,10 +14,20 @@
 <div class="hidden lg:block">
 	<div class="flex h-screen">
 		<div class="w-3/5 h-full flex flex-col justify-center items-center">
-			<div class="text-7xl font-bold">
-				discover
-				<br /> top shippers
-				<br />@_buildspace
+			<div>
+				<span class="text-7xl font-bold">
+					discover
+					<br /> top shippers
+					<br />@_buildspace
+				</span>
+				<div class="mt-10 flex">
+					<button type="button" class="btn btn-xl variant-ghost-secondary rounded-full">
+						<span class="inline-flex leading-tight">
+							<span class="px-1">explore</span>
+							<Fa size="lg" icon={faAngleRight} />
+						</span>
+					</button>
+				</div>
 			</div>
 			<LazyLoad>
 				<div class="lg:block hidden">
