@@ -1,5 +1,6 @@
 <!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
 <script setup lang="ts">
+	import { goto } from '$app/navigation';
 	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
 	import TweetList from '$lib/components/home/TweetList.svelte';
 	import TweetStats from '$lib/components/home/TweetStats.svelte';
@@ -8,6 +9,10 @@
 	import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 	let tabSet: number = 0;
+
+	function explore() {
+		goto('/explore');
+	}
 </script>
 
 <!-- Content for large screen only -->
@@ -21,7 +26,11 @@
 					<br />@_buildspace
 				</span>
 				<div class="mt-10 flex">
-					<button type="button" class="btn btn-xl variant-ghost-secondary rounded-full">
+					<button
+						type="button"
+						class="btn btn-xl variant-filled rounded-full hover:bg-gray-400"
+						on:click={explore}
+					>
 						<span class="inline-flex leading-tight">
 							<span class="px-1">explore</span>
 							<Fa size="lg" icon={faAngleRight} />
