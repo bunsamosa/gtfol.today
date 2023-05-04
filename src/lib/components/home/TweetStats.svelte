@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { fetchTweetCount } from '$lib/scripts/home/AppwriteClient';
+	import { fetchTweetCount } from '$lib/scripts/home/TweetClient';
 	import Spinner from '$lib/components/common/Spinner.svelte';
 </script>
 

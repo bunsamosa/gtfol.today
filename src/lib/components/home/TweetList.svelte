@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import { onMount } from 'svelte';
-	import { fetchTweets } from '$lib/scripts/home/AppwriteClient';
+	import { fetchTweets } from '$lib/scripts/home/TweetClient';
 	import CardSkeleton from '$lib/components/common/CardSkeleton.svelte';
 	import InfiniteScroll from '$lib/components/common/InfiniteScroll.svelte';
 	import Tweet from '$lib/components/home/Tweet.svelte';
