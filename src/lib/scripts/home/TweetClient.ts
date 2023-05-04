@@ -29,7 +29,7 @@ const season3Query = Query.greaterThan("created_on", season3Start.toISOString())
 async function fetchResponse(queries: Array<string>) {
     const response = await databases.listDocuments(
         import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_APPWRITE_COLLECTION_ID,
+        import.meta.env.VITE_TWEETS_COLLECTION_ID,
         queries);
     return response;
 };
