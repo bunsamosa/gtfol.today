@@ -10,8 +10,8 @@
 
 	let tabSet: number = 0;
 
-	function explore() {
-		goto('/explore');
+	function leaderboard() {
+		goto('/leaderboard');
 	}
 </script>
 
@@ -28,13 +28,11 @@
 				<div class="mt-10 flex">
 					<button
 						type="button"
-						class="btn btn-xl variant-filled rounded-full hover:bg-gray-400"
-						on:click={explore}
+						class="btn btn-xl variant-ghost-secondary rounded-full"
+						on:click={leaderboard}
 					>
-						<span class="inline-flex leading-tight">
-							<span class="px-1">explore</span>
-							<Fa size="lg" icon={faAngleRight} />
-						</span>
+						<span class="px-1">leaderboard</span>
+						<Fa icon={faAngleRight} />
 					</button>
 				</div>
 			</div>
