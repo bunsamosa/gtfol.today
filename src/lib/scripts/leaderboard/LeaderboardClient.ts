@@ -26,8 +26,25 @@ async function fetchResponse(queries: Array<string>) {
 };
 
 // fetch projects
-export async function fetchProjects(offset: number = 0, limit: number = 15) {
+export async function fetchProjects(
+    house: string,
+    searchQuery: string,
+    offset: number = 0,
+    limit: number = 15) {
+    let queries: any = [];
+
+    // apply house filter
+    if (house !== "all") {
+        queries.push(Query.equal("house", house));
+    }
+
+    // search query
+    if (searchQuery !== "") {
+        queries.push(Query.search("search_text", searchQuery));
+    }
+
     const response = await fetchResponse([
+        ...queries,
         Query.orderDesc("points"),
         Query.offset(offset),
         Query.limit(limit)
