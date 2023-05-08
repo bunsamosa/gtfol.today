@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import { AppShell } from '@skeletonlabs/skeleton';
+	import AppNavbar from '$lib/components/AppNavbar.svelte';
 	import FilterBar from '$lib/components/explore/FilterBar.svelte';
 </script>
 
@@ -12,12 +13,7 @@
 >
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
-		<AppBar background="">
-			<svelte:fragment slot="lead">
-				<img src="/images/gtfol-logo.png" class="max-h-10" alt="GTFOL" />
-			</svelte:fragment>
-			<svelte:fragment slot="trail">asas</svelte:fragment>
-		</AppBar>
+		<AppNavbar/>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
 		<!-- Filter Bar -->

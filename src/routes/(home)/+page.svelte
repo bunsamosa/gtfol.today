@@ -13,6 +13,11 @@
 	function leaderboard() {
 		goto('/leaderboard');
 	}
+
+	function nft() {
+		goto('/nft');
+	}
+	
 </script>
 
 <!-- Content for large screen only -->
@@ -25,13 +30,23 @@
 					<br /> top shippers
 					<br />@_buildspace
 				</span>
-				<div class="mt-10 flex">
+				<div class="mt-10 flex border">
 					<button
 						type="button"
 						class="btn btn-xl variant-ghost-secondary rounded-full"
 						on:click={leaderboard}
 					>
 						<span class="px-1">leaderboard</span>
+						<Fa icon={faAngleRight} />
+					</button>
+
+					<!-- redirect to nft page -->
+					<button
+						type="button"
+						class="btn btn-xl variant-ghost-secondary rounded-full"
+						on:click={nft}
+					>
+						<span class="px-1 ml-3">explore</span>
 						<Fa icon={faAngleRight} />
 					</button>
 				</div>
@@ -80,3 +95,10 @@
 		</LazyLoad>
 	</div>
 </div>
+
+
+<style>
+	.nft-btn {
+		margin-left: 20px;
+	}
+</style>
