@@ -25,7 +25,7 @@
 					<br /> top shippers
 					<br />@_buildspace
 				</span>
-				<div class="mt-10 flex">
+				<!-- <div class="mt-10 flex">
 					<button
 						type="button"
 						class="btn btn-xl variant-ghost-secondary rounded-full"
@@ -34,7 +34,7 @@
 						<span class="px-1">leaderboard</span>
 						<Fa icon={faAngleRight} />
 					</button>
-				</div>
+				</div> -->
 			</div>
 			<LazyLoad>
 				<div class="lg:block hidden">
