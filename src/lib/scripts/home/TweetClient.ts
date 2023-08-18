@@ -21,9 +21,9 @@ const thisDayQuery = Query.greaterThan("created_on", oneDayAgo.toISOString());
 const oneWeekAgo = new Date(now.getTime() - 604800000);
 const thisWeekQuery = Query.greaterThan("created_on", oneWeekAgo.toISOString());
 
-// query for season 3 - start date april 8th 2023
-const season3Start = new Date("2023-04-08T00:00:00.000Z");
-const season3Query = Query.greaterThan("created_on", season3Start.toISOString());
+// query for season - start date August 1st 2023
+const seasonStart = new Date("2023-08-01T00:00:00.000Z");
+const seasonQuery = Query.greaterThan("created_on", seasonStart.toISOString());
 
 // fetch data from DB for given query filters
 async function fetchResponse(queries: Array<string>) {
@@ -47,8 +47,8 @@ function fetchTimeQuery(time: string) {
         case "week":
             timeQuery = thisWeekQuery;
             break;
-        case "season3":
-            timeQuery = season3Query;
+        case "season":
+            timeQuery = seasonQuery;
             break;
         default:
             timeQuery = thisHourQuery;
