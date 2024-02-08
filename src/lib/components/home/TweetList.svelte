@@ -10,6 +10,7 @@
 	let tweetData: Array<any> = [];
 	let responseData: Array<any> = [];
 	let offset = 0;
+	let scrollElement: HTMLElement;
 
 	// function to fetch data
 	async function fetchData() {
@@ -28,18 +29,19 @@
 </script>
 
 <div>
-	<ul class="h-screen overflow-y-scroll hide-scrollbar">
+	<ul class="h-screen overflow-y-scroll hide-scrollbar" bind:this={scrollElement}>
 		{#if tweetData.length === 0}
 			<CardSkeleton />
 		{:else}
-			{#each tweetData as row (row.$id)}
-				<li id={row.$id}>
-					<Tweet tweetID={row.$id} />
+			{#each tweetData as row (row.tweet_id)}
+				<li id={row.tweet_id}>
+					<Tweet tweetID={row.tweet_id} />
 				</li>
 			{/each}
 			<InfiniteScroll
 				hasMore={responseData.length > 0}
 				threshold={500}
+				elementScroll={scrollElement}
 				on:loadMore={() => {
 					offset += responseData.length;
 					fetchData();

@@ -1,100 +1,108 @@
-import { Client, Databases, Query } from 'appwrite';
+import { createClient } from '@supabase/supabase-js';
 
-// create appwrite client
-const client = new Client();
-client.setEndpoint(import.meta.env.VITE_APPWRITE_ENDPOINT)
-    .setProject(import.meta.env.VITE_APPWRITE_PROJECT);
+// create supabase client
+const client = createClient(
+    import.meta.env.VITE_FRIDGE_URL,
+    import.meta.env.VITE_FRIDGE_KEY,
+    {
+        db: {
+            schema: import.meta.env.VITE_FRIDGE_SCHEMA,
+        }
+    }
+);
 
-// create db instance
-const databases = new Databases(client);
+const now = new Date();
+const queryFilters: Array<Array<string>> = [];
 
 // query for this hour
-const now = new Date();
 const oneHourAgo = new Date(now.getTime() - 3600000);
-const thisHourQuery = Query.greaterThan("created_on", oneHourAgo.toISOString());
 
 // query for last 24 hours
 const oneDayAgo = new Date(now.getTime() - 86400000);
-const thisDayQuery = Query.greaterThan("created_on", oneDayAgo.toISOString());
 
 // query for last 7 days
 const oneWeekAgo = new Date(now.getTime() - 604800000);
-const thisWeekQuery = Query.greaterThan("created_on", oneWeekAgo.toISOString());
 
-// query for season - start date August 1st 2023
-const seasonStart = new Date("2023-08-01T00:00:00.000Z");
-const seasonQuery = Query.greaterThan("created_on", seasonStart.toISOString());
-
-// fetch data from DB for given query filters
-async function fetchResponse(queries: Array<string>) {
-    const response = await databases.listDocuments(
-        import.meta.env.VITE_APPWRITE_DATABASE_ID,
-        import.meta.env.VITE_TWEETS_COLLECTION_ID,
-        queries);
-    return response;
-};
+// query for season - start date February 2nd 2024
+const seasonStart = new Date("2024-02-02T00:00:00.000Z");
 
 // given string time, return query
 function fetchTimeQuery(time: string) {
-    let timeQuery;
+    queryFilters.length = 0;
     switch (time) {
         case "hour":
-            timeQuery = thisHourQuery;
+            queryFilters.push(['created_on', 'gt', oneHourAgo.toISOString()]);
             break;
+
         case "day":
-            timeQuery = thisDayQuery;
+            queryFilters.push(['created_on', 'gt', oneDayAgo.toISOString()]);
             break;
+
         case "week":
-            timeQuery = thisWeekQuery;
+            queryFilters.push(['created_on', 'gt', oneWeekAgo.toISOString()]);
             break;
+
         case "season":
-            timeQuery = seasonQuery;
+            queryFilters.push(['created_on', 'gt', seasonStart.toISOString()]);
             break;
+
         default:
-            timeQuery = thisHourQuery;
+            queryFilters.push(['gt', 'created_on', oneHourAgo.toISOString()]);
     };
-    return timeQuery;
 };
 
 // fetch tweets
 export async function fetchTweets(time: string, offset: number = 0, limit: number = 5) {
-    let timeQuery = fetchTimeQuery(time);
-    console.log(timeQuery);
-    const response = await fetchResponse([
-        timeQuery,
-        Query.orderDesc("score"),
-        Query.offset(offset),
-        Query.limit(limit)
-    ]);
-    return response.documents;
+    fetchTimeQuery(time);
+
+    // build query
+    let query = client.from(
+        import.meta.env.VITE_TWEETS_COLLECTION_ID
+    ).select('*');
+
+    // apply filters
+    queryFilters.forEach(element => {
+        query = query.filter(...element);
+    });
+
+    // apply limit and offset
+    query = query.order('score', { ascending: false }).range(offset, offset + limit);
+    const response = await query;
+    console.log(response);
+
+    if(response.data === null) {
+        return [];
+    }
+    return response.data;
 };
 
 // fetch tweet count
 export async function fetchTweetCount(time: string) {
-    let timeQuery = fetchTimeQuery(time);
-    console.log(timeQuery);
+    // let timeQuery = fetchTimeQuery(time);
+    // console.log(timeQuery);
 
-    let offset = 0;
-    let limit = 5000;
-    let response = await fetchResponse([
-        timeQuery,
-        Query.offset(offset),
-        Query.limit(limit)
-    ]);
+    // let offset = 0;
+    // let limit = 5000;
+    // let response = await fetchResponse([
+    //     timeQuery,
+    //     Query.offset(offset),
+    //     Query.limit(limit)
+    // ]);
 
-    // fetch count when more than limit
-    let count = response.documents.length;
-    let total = count;
-    while (count > limit - 1) {
-        offset += count;
-        response = await fetchResponse([
-            timeQuery,
-            Query.offset(offset),
-            Query.limit(limit)
-        ]);
-        count = response.documents.length;
-        total += count;
-        console.log(limit, offset, total);
-    }
-    return total;
+    // // fetch count when more than limit
+    // let count = response.documents.length;
+    // let total = count;
+    // while (count > limit - 1) {
+    //     offset += count;
+    //     response = await fetchResponse([
+    //         timeQuery,
+    //         Query.offset(offset),
+    //         Query.limit(limit)
+    //     ]);
+    //     count = response.documents.length;
+    //     total += count;
+    //     console.log(limit, offset, total);
+    // }
+    // return total;
+    return 0;
 };
