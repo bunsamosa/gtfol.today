@@ -22,7 +22,12 @@
 			<dd class="font-light text-gray-400">tweets in 24 hours</dd>
 		</div>
 		<div class="flex flex-col items-center justify-center">
-			<dt class="mb-2 text-4xl font-bold">30K+</dt>
+			{#await fetchTweetCount('season')}
+				<Spinner />
+			{:then seasonCount}
+				<dt class="mb-2 text-4xl font-bold">{seasonCount}</dt>
+			{/await}
+			<!-- <dt class="mb-2 text-4xl font-bold">30K+</dt> -->
 			<dd class="font-light text-gray-400">tweets this season</dd>
 		</div>
 	</dl>

@@ -47,7 +47,7 @@
 				<Tab bind:group={tabSet} name="tab1" value={0}>Last Hour</Tab>
 				<Tab bind:group={tabSet} name="tab2" value={1}>24 Hours</Tab>
 				<Tab bind:group={tabSet} name="tab2" value={2}>7 days</Tab>
-				<Tab bind:group={tabSet} name="tab3" value={3}>Season 4</Tab>
+				<Tab bind:group={tabSet} name="tab3" value={3}>Season 5</Tab>
 				<!-- Tab Panels --->
 				<svelte:fragment slot="panel">
 					<LazyLoad>

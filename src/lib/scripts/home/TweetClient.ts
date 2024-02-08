@@ -78,31 +78,18 @@ export async function fetchTweets(time: string, offset: number = 0, limit: numbe
 
 // fetch tweet count
 export async function fetchTweetCount(time: string) {
-    // let timeQuery = fetchTimeQuery(time);
-    // console.log(timeQuery);
+    fetchTimeQuery(time);
 
-    // let offset = 0;
-    // let limit = 5000;
-    // let response = await fetchResponse([
-    //     timeQuery,
-    //     Query.offset(offset),
-    //     Query.limit(limit)
-    // ]);
+    // build query
+    let query = client.from(
+        import.meta.env.VITE_TWEETS_COLLECTION_ID
+    ).select('*', { count: 'exact', head: true });
 
-    // // fetch count when more than limit
-    // let count = response.documents.length;
-    // let total = count;
-    // while (count > limit - 1) {
-    //     offset += count;
-    //     response = await fetchResponse([
-    //         timeQuery,
-    //         Query.offset(offset),
-    //         Query.limit(limit)
-    //     ]);
-    //     count = response.documents.length;
-    //     total += count;
-    //     console.log(limit, offset, total);
-    // }
-    // return total;
-    return 0;
+    // apply filters
+    queryFilters.forEach(element => {
+        query = query.filter(...element);
+    });
+
+    const {data, count} = await query;
+    return count;
 };

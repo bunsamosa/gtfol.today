@@ -31,7 +31,9 @@
 <div>
 	<ul class="h-screen overflow-y-scroll hide-scrollbar" bind:this={scrollElement}>
 		{#if tweetData.length === 0}
-			<CardSkeleton />
+			<div class="text-center font-semibold text-xl">
+				There were no tweets in the time frame
+			</div>
 		{:else}
 			{#each tweetData as row (row.tweet_id)}
 				<li id={row.tweet_id}>
