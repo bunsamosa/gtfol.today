@@ -12,7 +12,6 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
-		"@dimfeld/svelte-lazyload": "^0.0.4",
 		"@fortawesome/free-solid-svg-icons": "^6.4.2",
 		"@skeletonlabs/skeleton": "^2.8.0",
 		"@skeletonlabs/tw-plugin": "^0.3.1",
@@ -36,6 +35,7 @@
 		"svelte": "^4.2.10",
 		"svelte-check": "^3.6.3",
 		"svelte-fa": "^4.0.2",
+		"svelte-lazy": "^1.2.7",
 		"tailwindcss": "^3.4.1",
 		"tslib": "^2.6.2",
 		"typescript": "^5.3.3",

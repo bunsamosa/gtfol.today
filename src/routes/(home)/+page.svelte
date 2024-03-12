@@ -1,18 +1,12 @@
-<!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
 <script setup lang="ts">
-	import { goto } from '$app/navigation';
 	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
 	import TweetList from '$lib/components/home/TweetList.svelte';
 	import TweetStats from '$lib/components/home/TweetStats.svelte';
-	import LazyLoad from '@dimfeld/svelte-lazyload';
+	import Lazy from 'svelte-lazy';
 	import Fa from 'svelte-fa';
 	import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 	let tabSet: number = 0;
-
-	function leaderboard() {
-		goto('/leaderboard');
-	}
 </script>
 
 <!-- Content for large screen only -->
@@ -25,22 +19,21 @@
 					<br /> top shippers
 					<br />@_buildspace
 				</span>
-				<!-- <div class="mt-10 flex">
+				<div class="mt-10 flex">
 					<button
 						type="button"
-						class="btn btn-xl variant-ghost-secondary rounded-full"
-						on:click={leaderboard}
+						class="btn btn-xl variant-filled rounded-full"
 					>
-						<span class="px-1">leaderboard</span>
+						<span class="px-1">help me launch</span>
 						<Fa icon={faAngleRight} />
 					</button>
-				</div> -->
+				</div>
 			</div>
-			<LazyLoad>
+			<Lazy keep=true>
 				<div class="lg:block hidden">
 					<TweetStats />
 				</div>
-			</LazyLoad>
+			</Lazy>
 		</div>
 		<div class="w-2/5 flex flex-col justify-start h-screen overflow-hidden">
 			<TabGroup regionList="sticky top-0 variant-glass-surface">
@@ -50,7 +43,7 @@
 				<Tab bind:group={tabSet} name="tab3" value={3}>Season 5</Tab>
 				<!-- Tab Panels --->
 				<svelte:fragment slot="panel">
-					<LazyLoad>
+					<Lazy>
 						{#if tabSet === 0}
 							<TweetList listType="hour" />
 						{:else if tabSet === 1}
@@ -60,23 +53,23 @@
 						{:else if tabSet === 3}
 							<TweetList listType="season" />
 						{/if}
-					</LazyLoad>
+					</Lazy>
 				</svelte:fragment>
 			</TabGroup>
 		</div>
 	</div>
 </div>
-<!-- Content for mobile only -->
 
+<!-- Content for mobile only -->
 <div class="block lg:hidden">
 	<div class="flex flex-col overflow-hidden hide-scrollbar">
 		<div class="justify-center items-center m-auto">
 			<div class="text-2xl font-bold">top shippers in 24 hours</div>
 		</div>
-		<LazyLoad>
+		<Lazy>
 			<div class="flex flex-col justify-start pt-3 overflow-hidden hide-scrollbar" id="mobile">
 				<TweetList listType="day" />
 			</div>
-		</LazyLoad>
+		</Lazy>
 	</div>
 </div>

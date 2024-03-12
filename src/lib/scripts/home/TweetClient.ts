@@ -46,8 +46,12 @@ function fetchTimeQuery(time: string) {
             queryFilters.push(['created_on', 'gt', seasonStart.toISOString()]);
             break;
 
+        case "alltime":
+            queryFilters.length = 0;
+            break;
+
         default:
-            queryFilters.push(['gt', 'created_on', oneHourAgo.toISOString()]);
+            queryFilters.push(['created_on', 'gt', oneHourAgo.toISOString()]);
     };
 };
 
@@ -68,7 +72,12 @@ export async function fetchTweets(time: string, offset: number = 0, limit: numbe
     // apply limit and offset
     query = query.order('score', { ascending: false }).range(offset, offset + limit);
     const response = await query;
-    console.log(response);
+    // console.log(response);
+
+    if (response.status !== 200) {
+        console.log(response.error.message)
+        return [];
+    }
 
     if(response.data === null) {
         return [];
@@ -90,6 +99,11 @@ export async function fetchTweetCount(time: string) {
         query = query.filter(...element);
     });
 
-    const {data, count} = await query;
-    return count;
+    const response = await query;
+
+    if (response.status !== 200) {
+        console.log(response.error.message)
+        return 0;
+    }
+    return response.count;
 };
