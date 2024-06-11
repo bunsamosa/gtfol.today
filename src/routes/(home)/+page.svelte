@@ -19,7 +19,7 @@
 					<br /> top shippers
 					<br />@_buildspace
 				</span>
-				<div class="mt-10 flex">
+				<!-- <div class="mt-10 flex">
 					<button
 						type="button"
 						class="btn btn-lg variant-filled rounded-full"
@@ -28,7 +28,7 @@
 							Explore<Fa class="px-1" icon={faAngleRight} />
 						</span>
 					</button>
-				</div>
+				</div> -->
 			</div>
 			<Lazy keep=true>
 				<div class="lg:block hidden">
